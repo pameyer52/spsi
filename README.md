@@ -8,7 +8,7 @@ There are other ways to do this (see the Alternatives section below), which may 
 
 
 ## Installation:
-SPSI requires [python](http://www.python.org)>= 2.5 (earlier versions with sqlite3 may function, but are untested).  Python 3 also works.  SPSI can be used stand-alone (from the command line), or from within PyMOL.  SPSI has been tested on linux and OS X, but should run on any system with a standard python installation.
+SPSI requires [python](http://www.python.org)>= 2.5 (earlier versions with sqlite3 may function, but are untested).  Python 3 also works.  SPSI can be used stand-alone (from the command line), or from within [PyMOL](http://pymol.org/).  SPSI has been tested on linux and OS X, but should run on any system with a standard python installation.
 
 ### Stand-Alone Installation: 
 
@@ -26,5 +26,5 @@ Copy spsi.py to a directory in your $PATH.
 Just me (Pete Meyer) so far.
 
 ## Alternatives:
-RigiMOL (bundled with incentive PyMOL) and LSQMAN (from Uppsala Software Factory) are some other (probably more feature rich) options for creating morphs.
+RigiMOL (bundled with incentive PyMOL) and LSQMAN (from [Uppsala Software Factory](http://xray.bmc.uu.se/usf/)) are some other (probably more feature rich) options for creating morphs.
 
