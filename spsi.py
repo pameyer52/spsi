@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-''' simplest possible structure interpolator '''
-
-#ok with 1ea5.pdb, 2cmf.pdb test case; pol2 open test case also works now.
+''' 
+simplest possible structure interpolator 
+'''
 
 #see if we're in pymol or not
 try:
@@ -36,6 +36,7 @@ try:
         os.remove(tmpfile_op)
 
 except ImportError:
+    #not in pymol, proceed as usual
     pass
 
 
@@ -102,11 +103,11 @@ def spsi(start_file, end_file, out_file, nsteps = 10):
     nsteps = number of intermediate steps 
     '''
     print('loading input pdb files')
-    #1. load both input files, store in db
-    conn = sqlite3.connect(':memory:') #in memory DB, only temporary
+    #load both input files, store in db
+    conn = sqlite3.connect(':memory:') #in memory DB, don't need persistence
     cur = conn.cursor()
     def sqlexec(c, sql):
-        ''' wrapper for db init'''
+        ''' wrapper for executing raw sql statement'''
         c.execute(sql)
     sqlexec(cur, 'CREATE TABLE atoms(id INTEGER PRIMARY KEY AUTOINCREMENT, atom_name TEXT,residue_number INTEGER,residue_name TEXT,chain_id TEXT,x REAL,y REAL,z REAL,i_step INTEGER,unpaired_flag INTEGER DEFAULT 1)')
     sqlexec(cur,'CREATE INDEX idx_atom_chid ON atoms(chain_id)')
@@ -119,7 +120,8 @@ def spsi(start_file, end_file, out_file, nsteps = 10):
     store_atoms(cur, end_model, nsteps-1) 
 
     print('pairing atoms')
-    #2. pair atoms by atom name, residue number and chain id.
+    #pair atoms by atom name, residue number and chain id.
+
     #views look like the simplest way of dealing with correct ordering of
     # start/end pairs.
     cur.execute('CREATE VIEW a AS SELECT id,residue_number, atom_name, chain_id FROM atoms WHERE i_step = 0')
@@ -134,12 +136,11 @@ def spsi(start_file, end_file, out_file, nsteps = 10):
         cur.execute('UPDATE atoms SET unpaired_flag=0 WHERE id=?',(id_st,))
         cur.execute('UPDATE atoms SET unpaired_flag=0 WHERE id=?',(id_en,))
 
-    #3. deal with unpaired atoms 
+    #deal with unpaired atoms 
     cur.execute('DELETE FROM atoms WHERE unpaired_flag=1')
 
     print('interpolating coordinates')
-    #4. create intermediate models by linear interpolation of coordinates
-    # loop over all pairs
+    #create intermediate models by linear interpolation of coordinates
     cur.execute('SELECT id_start, id_stop FROM pairs')
     r = cur.fetchall()
     for row in r:
@@ -169,7 +170,7 @@ def spsi(start_file, end_file, out_file, nsteps = 10):
             cur.execute('INSERT INTO atoms(atom_name, residue_number, chain_id, x,y,z, i_step, residue_name) values(?,?,?, ?,?,?, ?, ?)',(name, resn, chid, x_intp,y_intp,z_intp, istep, resname, ) )
 
     print('writing output')
-    #5. output multi-model pdb file
+    #output multi-model pdb file
     opf = open(out_file, 'w')
     iatom = 0
     for imodel in range(0, nsteps):

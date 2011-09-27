@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+'''
+spsi test cases, mainly input/output
+'''
+
 import unittest
 
 from spsi import parse_pdb_atom_line, linear_interpolate, generate_pdb_atom_line
