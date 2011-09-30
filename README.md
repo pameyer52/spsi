@@ -2,7 +2,7 @@
 
 ## Description:
 
-SPSI (simplest possible structure interpolator) is a tool for creating intermediate macromolecular structures from a pair of endpoint structures - otherwise known as morphs.  These can be useful for illustrating conformational changes in macromolecules, and are often displayed as movies.
+SPSI (simplest possible structure interpolator) is a tool for creating intermediate macromolecular structures from a pair of structures - otherwise known as morphs.  These can be useful for illustrating conformational changes in macromolecules, and are often displayed as movies.  The startpoint and endpoint models are input as PDB (Protein Data Bank) files, and the output is a multi-model PDB file containing both input models and the interpolated intermediate models.
 
 There are other ways to do this (see the Alternatives section below), which may have more features.  SPSI is an attempt to handle things as simply as possible (in an effort to reduce potential installation and configuration issues).
 
@@ -16,15 +16,21 @@ Copy spsi.py to a directory in your $PATH.
 
 ### PyMOL-Integrated Installation:
 
-**TODO**
+Copy spsi.py to a directory in PyMOL's PYTHONPATH (current working directory, or something in sys.path).
 
 ## Usage:
-**TODO** usage instructions go here
+For endpoint models A.pdb and B.pdb with 15 interpolated models generated:
 
+### Command line usage: spsi.py A.pdb B.pdb 15
+
+### From within PyMOL:
+1. run spsi; spsi.morph('A','B', 15)
+
+TODO - confirm syntax
 
 ## Contributers:
 Just me (Pete Meyer) so far.
 
 ## Alternatives:
-RigiMOL (bundled with incentive PyMOL) and LSQMAN (from [Uppsala Software Factory](http://xray.bmc.uu.se/usf/)) are some other (probably more feature rich) options for creating morphs.
+RigiMOL (bundled with incentive PyMOL) and LSQMAN (from [Uppsala Software Factory](http://xray.bmc.uu.se/usf/)) are some other (probably more feature rich) options for creating morphs.  There may be others I'm not aware of.
 
