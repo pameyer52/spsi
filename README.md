@@ -16,7 +16,7 @@ Copy spsi.py to a directory in your $PATH.
 
 ### PyMOL-Integrated Installation:
 
-Copy spsi.py to a directory in PyMOL's PYTHONPATH (current working directory, or something in sys.path).
+Copy spsi.py to a directory in PyMOL's $PYTHONPATH (current working directory, or something in sys.path).
 
 ## Usage:
 For endpoint models A.pdb and B.pdb with 15 interpolated models generated:
@@ -24,9 +24,12 @@ For endpoint models A.pdb and B.pdb with 15 interpolated models generated:
 ### Command line usage: spsi.py A.pdb B.pdb 15
 
 ### From within PyMOL:
-1. run spsi; spsi.morph('A','B', 15)
+1. run spsi.py; 
+2. load A.pdb
+3. load B.pdb
+4. morph('A','B','output_morph', nsteps=15) 
 
-TODO - confirm syntax
+The nsteps argument is optional; the default is 10 steps of interpolation.
 
 ## Contributers:
 Just me (Pete Meyer) so far.
