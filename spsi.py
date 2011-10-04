@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+#Copyright 2011 Pete Meyer
+# Relased under a Simplified BSD License (see LICENSE for details)
+
 ''' 
 simplest possible structure interpolator 
 '''
